@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     # Local
     'users',
+    'request_counter',
 ]
 
 MIDDLEWARE = [
