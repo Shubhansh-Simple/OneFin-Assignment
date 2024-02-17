@@ -6,6 +6,9 @@ __pycache__
 # No database
 db.sqlite3
 
+# Migrations folder
+migrations
+
 # Vim #
 *.swp 
 
