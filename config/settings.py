@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd-party apps
+    'rest_framework',
+
     # Local
     'users',
 ]
@@ -127,4 +130,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Customer User Model
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# For Django Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES' : [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
 
