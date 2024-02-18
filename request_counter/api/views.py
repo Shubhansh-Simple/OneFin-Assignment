@@ -1,3 +1,5 @@
+# request_counter/api/views.py
+
 from rest_framework          import status
 from rest_framework.views    import APIView
 from rest_framework.response import Response
@@ -30,9 +32,4 @@ class ResetRequestCountApiView( APIView ):
         response = { 'message': 'request count reset successfully' }
 
         return Response( response, status=status.HTTP_201_CREATED )
-
-
-
-
-
 
