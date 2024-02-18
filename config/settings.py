@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Local
     'users',
     'request_counter',
+    'movie_app',
 ]
 
 MIDDLEWARE = [
