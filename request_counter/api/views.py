@@ -32,5 +32,5 @@ class ResetRequestCountApiView( APIView ):
             obj.save()
         response = { 'message': 'request count reset successfully' }
 
-        return Response( response, status=status.HTTP_201_CREATED )
+        return Response( response, status=status.HTTP_200_OK )
 
