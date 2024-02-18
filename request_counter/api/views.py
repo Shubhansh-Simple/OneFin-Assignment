@@ -1,4 +1,5 @@
-from rest_framework          import generics
+from rest_framework          import status
+from rest_framework.views    import APIView
 from rest_framework.response import Response
 
 # local
@@ -6,39 +7,32 @@ from request_counter.models  import RequestCount
 from .serializers            import RequestCountSerializer
 
 
-class RequestCountDetailApiView( generics.RetrieveAPIView ):
-    '''Return total requests servered by the server'''
+class RequestCountApiView( APIView ):
 
-    queryset         = RequestCount.objects.all()
-    serializer_class = RequestCountSerializer
+    def get(self,request,format=None):
+        '''Return total requests servered by the server'''
 
-    def get_object(self):
-        '''Get first item from records'''
+        obj        = RequestCount.objects.first()
+        serializer = RequestCountSerializer(obj)
 
-        queryset = self.filter_queryset( self.get_queryset() )
-        obj      = queryset.first()
-        return obj
+        return Response( serializer.data, status=status.HTTP_200_OK )
 
 
-class RequestCounterUpdateApiView( generics.UpdateAPIView ):
-    '''Reset total requests servered by the server'''
+class ResetRequestCountApiView( APIView ):
 
-    queryset         = RequestCount.objects.first()
-    serializer_class = RequestCountSerializer
+    def post(self,request,format=None):
+        '''Reset total requests servered by the server'''
 
-    def get_object(self):
-        '''Get first item from records'''
+        obj      = RequestCount.objects.first()
+        if obj:
+            obj.total_requests = 0
+            obj.save()
+        response = { 'message': 'request count reset successfully' }
 
-        obj = self.filter_queryset( self.get_queryset() )
-        return obj
+        return Response( response, status=status.HTTP_201_CREATED )
 
 
-    def perform_update(self, serializer):
-        '''Reset the total request value to 0'''
 
-        serializer.instance.total_requests = 0
-        serializer.save()
-        return Response({'message' : 'request count reset successfully'})
 
 
 

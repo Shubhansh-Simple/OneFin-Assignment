@@ -1,7 +1,7 @@
 from django.urls import path
-from .views      import RequestCountDetailApiView, RequestCounterUpdateApiView
+from .views      import RequestCountApiView, ResetRequestCountApiView
 
 urlpatterns = [
-    path('',       RequestCountDetailApiView.as_view() ),
-    path('reset/', RequestCounterUpdateApiView.as_view() ),
+    path('',       RequestCountApiView.as_view() ),
+    path('reset/', ResetRequestCountApiView.as_view() ),
 ]

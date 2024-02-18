@@ -7,7 +7,7 @@ class RequestCountSerializer( serializers.ModelSerializer ):
 
     class Meta:
         model  = RequestCount
-        fields = ['requests']
+        fields = ('requests',)
         read_only_fields = ('requests',)
 
     def get_requests(self,obj):
