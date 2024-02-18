@@ -1,5 +1,5 @@
-from rest_framework import serializers
-from ..models       import RequestCount
+from rest_framework         import serializers
+from request_counter.models import RequestCount
 
 class RequestCountSerializer( serializers.ModelSerializer ):
 
