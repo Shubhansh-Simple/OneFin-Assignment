@@ -16,8 +16,8 @@ migrations
 *.py[cod] 
 *$py.class 
 
-# SECRETS
-.env
+# SECRETS [NEED TO BE UPDATED]
+#.env
 
 Pipfile
 Pipfile.lock
