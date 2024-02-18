@@ -17,8 +17,6 @@ from rest_framework.response import Response
 class MovieApiView( APIView ):
 
     def fetch_movies(self):
-        '''Retrieve the movies from 3rd party api'''
-
         url      = settings.MOVIE_API_URL
         username = settings.MOVIE_API_USERNAME 
         password = settings.MOVIE_API_PASSWORD
@@ -27,7 +25,7 @@ class MovieApiView( APIView ):
 
 
     def get(self, request, format=None):
-        '''Return response with Handle exception and retrying request'''
+        '''Integrate 3rd party API with built-in retry mechanism'''
 
         max_retries = 3 
         retry_delay = 2 # in seconds
