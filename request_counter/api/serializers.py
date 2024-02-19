@@ -1,4 +1,9 @@
+# request_counter/api/serializers.py
+
+# rest_framework
 from rest_framework         import serializers
+
+# local
 from request_counter.models import RequestCount
 
 class RequestCountSerializer( serializers.ModelSerializer ):

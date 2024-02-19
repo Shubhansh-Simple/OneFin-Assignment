@@ -10,7 +10,7 @@ from rest_framework import serializers
 from movie_app.models import Collections, Genres, Movies
 
 
-# GENRES SERIALIZER
+# GENRE SERIALIZER
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genres
@@ -22,7 +22,7 @@ class GenreSerializer(serializers.ModelSerializer):
         }
 
 
-# MOVIES SERIALIZER
+# MOVIE SERIALIZER
 class MovieSerializer(serializers.ModelSerializer):
 
     genres = GenreSerializer(many=True)
@@ -64,7 +64,7 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
         model  = Collections
         fields = ['title','description','creator','movies' ]
 
-
+    # Custom Validators
     def run_validators(self, attrs):
         '''Generating the error messages as errors occured'''
 
@@ -82,7 +82,7 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
         if attrs.get('movies'):
             movies_list = attrs.get('movies')
 
-            # Validate data in each movie records of payload
+            # Validate Data in Each Movie Record of Payload
             for movie in movies_list:
                 single_error = {}
                 if not movie.get('title'):

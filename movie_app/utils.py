@@ -4,7 +4,7 @@
 from collections import Counter
 
 def get_top_genres(queryset):
-    '''Return Top 3 favorite genres'''
+    '''Retrieve Top 3 Genres from QuerySet'''
 
     if queryset:
         # Count the occurrences of each genre
@@ -18,7 +18,7 @@ def get_top_genres(queryset):
     return []
 
 def prepare_response( user_collections, favourite_genres):
-    '''Prepare response for views'''
+    '''Prepare Response for Views'''
 
     response = { 
         'is_success' : True,
@@ -27,5 +27,4 @@ def prepare_response( user_collections, favourite_genres):
         },
         'favourite_genres' : favourite_genres
     }
-
     return response

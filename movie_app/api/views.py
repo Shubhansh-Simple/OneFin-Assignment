@@ -45,7 +45,7 @@ class MovieApiView( APIView ):
                 if response.status_code == 200:
                     return Response( response.json(), status=response.status_code )
                 else:
-                    print('GET /movies/ FAILED!, Retrying ')
+                    print('Request failed! (Retrying...)')
                     print('Response - ',response.text)
                     time.sleep( randint(min_delay, max_delay) )
 
@@ -58,15 +58,17 @@ class MovieApiView( APIView ):
 
 
 class CollectionViewSet( viewsets.ViewSet ):
+    '''Implementing CRUD operations for Collections'''
+
     serializer_class   = CollectionCreateSerializer
     #permission_classes = [IsAuthenticated, IsCollectionCreatorLoggedIn]
 
     def list(self, request):
         #data       = Collections.objects.filter(creator=request.user)
-        user_collections = Collections.objects.filter(creator_id=6)
+        user_collections = Collections.objects.filter(creator_id=8)
         serializer       = CollectionListSerializer(user_collections, many=True)
 
-        # Calculating Top 3 Genres
+        # CALCULATING TOP 3 GENRES
         user_movies = Movies.objects.filter(collections__in=user_collections)
         user_genres = Genres.objects.filter(movies__in=user_movies)
 
@@ -78,6 +80,7 @@ class CollectionViewSet( viewsets.ViewSet ):
 
 
     def retrieve(self, request, pk=None):
+        '''Check uuid or valid or not'''
         try:
             user_collection = Collections.objects.get(uuid=pk)
             serializer      = CollectionDetailSerializer(user_collection)

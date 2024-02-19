@@ -16,7 +16,6 @@ urlpatterns = [
 # Default Router
 router = DefaultRouter()
 router.register(r'collection', CollectionViewSet, basename='collections')
-#print('Router - ',router.urls)
 
 # Add to parent urls
 urlpatterns += router.urls

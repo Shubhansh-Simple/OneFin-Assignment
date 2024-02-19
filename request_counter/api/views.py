@@ -11,9 +11,9 @@ from .serializers            import RequestCountSerializer
 
 
 class RequestCountApiView( APIView ):
+    '''Return total requests servered by the server'''
 
     def get(self,request,format=None):
-        '''Return total requests servered by the server'''
 
         obj        = RequestCount.objects.first()
         serializer = RequestCountSerializer(obj)
@@ -22,9 +22,9 @@ class RequestCountApiView( APIView ):
 
 
 class ResetRequestCountApiView( APIView ):
+    '''Reset total requests servered by the server in database'''
 
     def post(self,request,format=None):
-        '''Reset total requests servered by the server'''
 
         obj      = RequestCount.objects.first()
         if obj:

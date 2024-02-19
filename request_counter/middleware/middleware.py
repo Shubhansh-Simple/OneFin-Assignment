@@ -1,11 +1,12 @@
 # request_counter/middleware/middleware.py
 
+# django
 from django.db        import transaction
 from django.db.models import F
 from request_counter.models import RequestCount
 
 class RequestCounterMiddleware:
-    '''Customer middleware for counting all requests coming to server'''
+    '''Custom Middleware for counting all requests coming to server'''
 
     def __init__(self, get_response):
         self.get_response = get_response
@@ -13,7 +14,7 @@ class RequestCounterMiddleware:
     def __call__(self, request):
         '''Increment request count'''
 
-        # Work with MODERATE level of concurrency ( Since using SQLITE )
+        # Work with only MODERATE level of concurrency ( Since using SQLITE )
         with transaction.atomic():
             request_count = RequestCount.objects.select_for_update().get_or_create(id=1)[0]
             request_count.total_requests = F('total_requests') + 1

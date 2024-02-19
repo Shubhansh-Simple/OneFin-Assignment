@@ -3,16 +3,16 @@
 *.pyc
 __pycache__
 
-# No database
+# database
 db.sqlite3
 
 # Migrations folder
 migrations
 
-# Vim #
+# Vim
 *.swp 
 
-# Python # 
+# Python 
 *.py[cod] 
 *$py.class 
 

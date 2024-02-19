@@ -10,8 +10,6 @@ import uuid
 
 # Movie's Genres
 class Genres(models.Model):
-    '''Table for genres of movies'''
-
     genres = models.CharField( primary_key=True, max_length=100 )
 
     class Meta:
@@ -22,7 +20,9 @@ class Genres(models.Model):
         return f'{self.genres.title()}'
 
 
+# Movie's Table
 class Movies(models.Model):
+
     class Meta:
         verbose_name        = 'Movie'
         verbose_name_plural = 'Movies'
@@ -35,8 +35,9 @@ class Movies(models.Model):
     def __str__(self):
         return f'Movie - {self.title.title()}'
 
-
+# Collection's Table
 class Collections(models.Model):
+
     class Meta:
         verbose_name        = 'Collection'
         verbose_name_plural = 'Collections'
@@ -45,7 +46,7 @@ class Collections(models.Model):
     title       = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     movies      = models.ManyToManyField(Movies, related_name='collections', blank=True)
-    creator     = models.ForeignKey( settings.AUTH_USER_MODEL, on_delete=models.CASCADE )
+    creator     = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.creator.username}'s Collection - {self.title}"
