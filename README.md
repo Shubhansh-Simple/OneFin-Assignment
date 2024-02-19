@@ -15,7 +15,7 @@ It's an assignment task from OneFin
 
 ### API Endpoints
 | HTTP Verbs | Authentication | Endpoints | Action |
-| --- | --- | --- |
+| --- | --- | --- | --- |
 | POST | NO | /register/  | Register user and return JWT token |
 | GET |  YES |/movies/  | To retrieve all movies from 3rd party api |
 | GET |  YES |/collection/  | To retrieve all collections of authenticate user |
@@ -25,6 +25,7 @@ It's an assignment task from OneFin
 | DELETE | YES |/collection:pk  | To delete a collection |
 | GET |  YES | /request-count/  | Return the total number of requests servered by the server |
 | GET |  YES | /request-count/reset/  | Reset total requests servered by the server |
+
 
 ## Overview
 
