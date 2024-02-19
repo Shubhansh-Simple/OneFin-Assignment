@@ -11,6 +11,7 @@ import uuid
 # django
 from django.conf         import settings
 from django.contrib.auth import get_user_model
+from django.db.models    import Count
 
 # rest_framework
 from rest_framework             import status, viewsets
@@ -20,7 +21,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # local
 from movie_app.models import Collections, Genres, Movies
-from movie_app.utils  import get_top_genres, prepare_response
+from movie_app.utils  import prepare_response
 from .permissions     import IsCollectionCreatorLoggedIn
 from .serializers     import CollectionCreateSerializer, CollectionDetailSerializer, CollectionListSerializer 
 
@@ -68,17 +69,16 @@ class CollectionViewSet( viewsets.ViewSet ):
 
     def list(self, request):
         #data       = Collections.objects.filter(creator=request.user)
-        user_collections = Collections.objects.filter(creator_id=8)
+        user_collections = Collections.objects.filter(creator_id=6)
         serializer       = CollectionListSerializer(user_collections, many=True)
 
         # CALCULATING TOP 3 GENRES
-        user_movies = Movies.objects.filter(collections__in=user_collections)
-        user_genres = Genres.objects.filter(movies__in=user_movies)
+        top_genres = Genres.objects.filter(movies__collections__creator_id=6) \
+                                   .annotate(genre_count=Count('movies')) \
+                                   .order_by('-genre_count')[:3] \
+                                   .values_list('genres', flat=True)
 
-        queryset         = user_genres.values_list('genres',flat=True)
-        favourite_genres = get_top_genres(queryset)
-
-        response = prepare_response(serializer.data ,favourite_genres)
+        response = prepare_response(serializer.data ,top_genres)
         return Response(response)
 
 
