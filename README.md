@@ -60,50 +60,41 @@ Authorization: Bearer YOUR_ACCESS_TOKEN
 
 ### 1. Endpoint 1
 
-- **URL**: `/endpoint1`
-- **Method**: `GET`
-- **Description**: Description of what this endpoint does.
-- **Parameters**:
-  - `param1`: Description of parameter 1. *(Optional)*
-- **Example Request**:
-  ```http
-  GET /endpoint1?param1=value1 HTTP/1.1
-  Host: api.example.com
-  Authorization: Bearer YOUR_ACCESS_TOKEN
-  ```
-- **Example Response**:
-  ```json
-  {
-    "key": "value"
-  }
-  ```
-
-### 2. Endpoint 2
-
-- **URL**: `/endpoint2`
+- **URL**: `/collection/`
 - **Method**: `POST`
-- **Description**: Description of what this endpoint does.
-- **Request Body**:
-  ```json
-  {
-    "key": "value"
-  }
-  ```
+- **Description**: Create collections and add movies to it as well
+- **Parameters**:
+  - `param1`: N/A *(Optional)*
+
 - **Example Request**:
   ```http
-  POST /endpoint2 HTTP/1.1
-  Host: api.example.com
+  GET /collection HTTP/1.1
+  Host: http://localhost:8000/collection/
   Authorization: Bearer YOUR_ACCESS_TOKEN
   Content-Type: application/json
-
+  ```
+  ```json
   {
-    "key": "value"
+    "title": "New Collection Name",
+    "description": "For storing movies",
+    "movies": [
+            {
+                "title": "House of Horrors",
+                "description": "An unsuccessful sculptor saves a madman named",
+                "genres": [
+                  {"genres" : "Horror"},
+                  {"genres" : "Mystery"},
+                  {"genres" : "Thriller"}
+                ],
+                "uuid": "388c99da-0cba-4ff0-a528-faea153b43c3"
+            }
+        ]
   }
   ```
 - **Example Response**:
   ```json
   {
-    "message": "success"
+    "collection_uuid": "7c6e8fe3-cc7f-42bc-8a3f-bc5a13416418"
   }
   ```
 
