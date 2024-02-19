@@ -11,15 +11,14 @@ from movie_app.models import Collections, Genres, Movies
 
 
 # GENRES SERIALIZER
-class GenreSerializer( serializers.ModelSerializer ):
-    class Meta:
-        model = Genres
-        field = '__all__'
+#class GenreSerializer( serializers.ModelSerializer ):
+#   class Meta:
+#       model = Genres
+#       field = '__all__'
 
 
 # MOVIES SERIALIZER
 class MovieSerializer(serializers.ModelSerializer):
-    #genres = GenreSerializer(many=True)
 
     class Meta:
         model  = Movies

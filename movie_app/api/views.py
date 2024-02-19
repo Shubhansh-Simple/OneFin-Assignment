@@ -1,14 +1,13 @@
 # movie_app/api/views.py
 
 # python
-from random      import randint
-from collections import Counter
+from random import randint
 import requests
 import time
 
 # django
-from django.conf      import settings
-from django.db.models import Count
+from django.conf         import settings
+from django.contrib.auth import get_user_model
 
 # rest_framework
 from rest_framework             import status, viewsets
@@ -75,15 +74,8 @@ class CollectionViewSet( viewsets.ViewSet ):
         queryset         = user_genres.values_list('genre_name',flat=True)
         favourite_genres = get_top_genres(queryset)
 
-        response   = {
-            'is_success' : True,
-            'data' : {
-                'collections' : serializer.data
-                },
-            'favourite_genres' : favourite_genres
-        }
+        response = prepare_response(serializer.data ,favourite_genres)
         return Response(response)
-
 
 
     def retrieve(self, request, pk=None):
@@ -92,7 +84,8 @@ class CollectionViewSet( viewsets.ViewSet ):
             serializer      = GETRetrieveCollectionSerializer(user_collection)
 
         except Collections.DoesNotExist:
-            return Response({"error": "Object not found"}, status=status.HTTP_404_NOT_FOUND)
+            response = {'error' :  'Object not found'}
+            return Response(response, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.data)
 

@@ -15,5 +15,17 @@ def get_top_genres(queryset):
 
         return ','.join(favourite_genres)
 
-    return
+    return ''
 
+def prepare_response( user_collections, favourite_genres):
+    '''Prepare response for views'''
+
+    response = { 
+        'is_success' : True,
+        'data' : {
+            'collections' : user_collections
+        },
+        'favourite_genres' : favourite_genres
+    }
+
+    return response
