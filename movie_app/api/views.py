@@ -87,6 +87,11 @@ class CollectionViewSet( viewsets.ViewSet ):
 
 
     def retrieve(self, request, pk=None):
-        user_collection = Collections.objects.get(uuid=pk)
-        serializer      = GETRetrieveCollectionSerializer(user_collection)
+        try:
+            user_collection = Collections.objects.get(uuid=pk)
+            serializer      = GETRetrieveCollectionSerializer(user_collection)
+
+        except Collections.DoesNotExist:
+            return Response({"error": "Object not found"}, status=status.HTTP_404_NOT_FOUND)
+
         return Response(serializer.data)
