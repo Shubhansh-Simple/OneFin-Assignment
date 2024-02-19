@@ -15,17 +15,16 @@ from rest_framework.response import Response
 
 
 class MovieApiView( APIView ):
+    '''Integrate 3rd party API with built-in retry mechanism'''
 
     def fetch_movies(self):
         url      = settings.MOVIE_API_URL
         username = settings.MOVIE_API_USERNAME 
         password = settings.MOVIE_API_PASSWORD
-        response   = requests.get(url, auth=(username,password))
+        response = requests.get(url, auth=(username,password))
         return response
 
-
     def get(self, request, format=None):
-        '''Integrate 3rd party API with built-in retry mechanism'''
 
         max_retries = 3 
         retry_delay = 2 # in seconds
