@@ -68,7 +68,7 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
     def run_validators(self, attrs):
         '''Generating the error messages as errors occured'''
 
-        # SKIP validation for PUT request ( optional field )
+        # SKIP validation for PUT request ( all three fields are optional )
         if self.partial: return attrs
 
         errors = {}
@@ -102,7 +102,6 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(errors)
         return attrs
 
-
     def create(self, validated_data):
         movies_list    = validated_data.pop('movies')
         all_movies     = handling_movies_and_genres(movies_list)
@@ -110,6 +109,17 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
         collection_obj.movies.set(all_movies)
         return collection_obj
 
+    def update(self, instance, validated_data):
+        print('You are here for updaing')
+
+        instance.title       = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        if validated_data.get('movies'):
+            movies_data = validated_data.get('movies')
+            all_movies  = handling_movies_and_genres(movies_data)
+            instance.movies.set(all_movies)
+        instance.save()
+        return instance
 
 def handling_movies_and_genres(movies_list):
 

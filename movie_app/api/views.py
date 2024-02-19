@@ -119,11 +119,16 @@ class CollectionViewSet( viewsets.ViewSet ):
             return Response(response, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        else:
-            print('I am the ghost in your application')
-            print(serializer.errors)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def update(self, request, pk=None):
+        obj        = Collections.objects.get(uuid=pk)
+        serializer = CollectionCreateSerializer(obj, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            resp = {"message": "Record updated successfully"}
+            return Response(resp, status=status.HTTP_202_ACCEPTED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
     def destroy(self, request, pk=None):
