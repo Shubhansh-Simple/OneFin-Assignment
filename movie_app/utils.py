@@ -13,9 +13,9 @@ def get_top_genres(queryset):
         # Count the occurrences of each genre
         favourite_genres = [ genre for genre, _ in genre_counts.most_common(3) ]
 
-        return ','.join(favourite_genres)
+        return favourite_genres
 
-    return ''
+    return []
 
 def prepare_response( user_collections, favourite_genres):
     '''Prepare response for views'''

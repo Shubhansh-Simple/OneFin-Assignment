@@ -12,14 +12,14 @@ import uuid
 class Genres(models.Model):
     '''Table for genres of movies'''
 
-    genre_name = models.CharField( primary_key=True, max_length=100 )
+    genres = models.CharField( primary_key=True, max_length=100 )
 
     class Meta:
         verbose_name        = 'Genres'
         verbose_name_plural = 'Genres'
 
     def __str__(self):
-        return f'Genres - {self.genre_name.title()}'
+        return f'{self.genres.title()}'
 
 
 class Movies(models.Model):

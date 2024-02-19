@@ -17,9 +17,9 @@ from rest_framework.permissions import IsAuthenticated
 
 # local
 from movie_app.models import Collections, Genres, Movies
-from movie_app.utils  import get_top_genres
+from movie_app.utils  import get_top_genres, prepare_response
 from .permissions     import IsCollectionCreatorLoggedIn
-from .serializers     import GETRetrieveCollectionSerializer, POSTPUTCollectionSerializer, GETCollectionSerializer
+from .serializers     import CollectionCreateSerializer, CollectionDetailSerializer, CollectionListSerializer 
 
 
 class MovieApiView( APIView ):
@@ -58,20 +58,19 @@ class MovieApiView( APIView ):
 
 
 class CollectionViewSet( viewsets.ViewSet ):
-    serializer_class   = GETCollectionSerializer
+    serializer_class   = CollectionCreateSerializer
     #permission_classes = [IsAuthenticated, IsCollectionCreatorLoggedIn]
-
 
     def list(self, request):
         #data       = Collections.objects.filter(creator=request.user)
         user_collections = Collections.objects.filter(creator_id=6)
-        serializer       = GETCollectionSerializer(user_collections, many=True)
+        serializer       = CollectionListSerializer(user_collections, many=True)
 
-        # Get TOP 3 favourite genres
+        # Calculating Top 3 Genres
         user_movies = Movies.objects.filter(collections__in=user_collections)
         user_genres = Genres.objects.filter(movies__in=user_movies)
 
-        queryset         = user_genres.values_list('genre_name',flat=True)
+        queryset         = user_genres.values_list('genres',flat=True)
         favourite_genres = get_top_genres(queryset)
 
         response = prepare_response(serializer.data ,favourite_genres)
@@ -81,13 +80,34 @@ class CollectionViewSet( viewsets.ViewSet ):
     def retrieve(self, request, pk=None):
         try:
             user_collection = Collections.objects.get(uuid=pk)
-            serializer      = GETRetrieveCollectionSerializer(user_collection)
+            serializer      = CollectionDetailSerializer(user_collection)
 
         except Collections.DoesNotExist:
-            response = {'error' :  'Object not found'}
+            response = {'error' : 'Object not found'}
             return Response(response, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.data)
+
+
+    def create(self, request):
+        user = get_user_model().objects.get(id=6)
+
+        request_data = request.data.copy()
+        request_data['creator'] = user #request.user.id  
+        print('Requested data - ',request_data)
+
+        serializer = CollectionCreateSerializer(data=request_data)
+
+        if serializer.is_valid():
+            print('It is valid')
+            instance = serializer.save(creator=request_data['creator'])
+            response = {'collection_uuid' : instance.uuid}
+            return Response(response, status=status.HTTP_201_CREATED)
+        else:
+            print('I am the ghost in your application')
+            print(serializer.errors)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
     def destroy(self, request, pk=None):
@@ -100,3 +120,7 @@ class CollectionViewSet( viewsets.ViewSet ):
             response = {'message' :  'No collection found'}
 
         return Response(response, status=status.HTTP_204_NO_CONTENT)
+
+
+
+
