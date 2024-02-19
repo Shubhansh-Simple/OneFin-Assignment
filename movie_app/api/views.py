@@ -1,6 +1,7 @@
 # movie_app/api/views.py
 
 # python
+from random import randint
 import requests
 import time
 
@@ -27,7 +28,7 @@ class MovieApiView( APIView ):
     def get(self, request, format=None):
 
         max_retries = 3 
-        retry_delay = 2 # in seconds
+        min_delay, max_delay = 1, 5
 
         for _ in range(max_retries):
             try:
@@ -39,11 +40,11 @@ class MovieApiView( APIView ):
                 else:
                     print('GET /movies/ FAILED!, Retrying ')
                     print('Response - ',response.text)
-                    time.sleep(retry_delay)
+                    time.sleep( randint(min_delay, max_delay) )
 
             except requests.exceptions.RequestException as e:
                 print('Request failed! (Retrying...), ',str(e))
-                time.sleep(retry_delay)
+                time.sleep( randint(min_delay, max_delay) )
 
         # If all retries fails, returns response with status code 503
         return Response({'message' : 'All retries failed'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
