@@ -7,6 +7,15 @@ It's an assignment task from OneFin
 
 This document provides detailed documentation for the OneFin-Assignment REST API. It includes information on how to interact with the API, available endpoints, request/response formats, authentication, and examples.
 
+# Authenticate User's Collections Listview
+<p align="center">
+  <a href="https://shub.pythonanywhere.com/profile">
+    <img alt="Responsive" src="https://raw.githubusercontent.com/Shubhansh-Simple/OneFin-Assignment/main/Screenshots/Collection-List-View.png" height="500" /> 
+  </a>
+</p>
+
+<hr>
+
 ## Base URL
 
 The base URL for all API endpoints is:
@@ -90,19 +99,12 @@ Example error response:
 }
 ```
 
-# Authenticate User's Collections Listview
-<p align="center">
-  <a href="https://shub.pythonanywhere.com/profile">
-    <img alt="Responsive" src="https://raw.githubusercontent.com/Shubhansh-Simple/OneFin-Assignment/main/Screenshots/Collection-Detail-View.png" height="500" /> 
-  </a>
-</p>
-
 <hr>
 
 # Authenticate User's Collections Detailview
 <p align="center">
   <a href="https://shub.pythonanywhere.com/profile">
-    <img alt="Responsive" src="https://raw.githubusercontent.com/Shubhansh-Simple/OneFin-Assignment/main/Screenshots/Collection-List-View.png" height="500" /> 
+    <img alt="Responsive" src="https://raw.githubusercontent.com/Shubhansh-Simple/OneFin-Assignment/main/Screenshots/Collection-Detail-View.png" height="500" /> 
   </a>
 </p>
 
