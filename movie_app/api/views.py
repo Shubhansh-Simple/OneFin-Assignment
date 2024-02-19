@@ -5,6 +5,9 @@ from random import randint
 import requests
 import time
 
+# 3rd Party
+import uuid
+
 # django
 from django.conf         import settings
 from django.contrib.auth import get_user_model
@@ -80,11 +83,19 @@ class CollectionViewSet( viewsets.ViewSet ):
 
 
     def retrieve(self, request, pk=None):
-        '''Check uuid or valid or not'''
         try:
+            # Verify UUID
+            uuid_obj = uuid.UUID(pk)
+
             user_collection = Collections.objects.get(uuid=pk)
             serializer      = CollectionDetailSerializer(user_collection)
 
+        # Handle Invalid UUID
+        except ValueError:
+            response = {'error' : f'{pk} is not a valid UUID'}
+            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+
+        # Handle No data found
         except Collections.DoesNotExist:
             response = {'error' : 'Object not found'}
             return Response(response, status=status.HTTP_404_NOT_FOUND)
@@ -106,6 +117,8 @@ class CollectionViewSet( viewsets.ViewSet ):
             instance = serializer.save(creator=request_data['creator'])
             response = {'collection_uuid' : instance.uuid}
             return Response(response, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         else:
             print('I am the ghost in your application')
             print(serializer.errors)
