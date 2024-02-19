@@ -29,6 +29,8 @@ from .serializers     import CollectionCreateSerializer, CollectionDetailSeriali
 class MovieApiView( APIView ):
     '''Integrate 3rd party API with built-in retry mechanism'''
 
+    permission_classes = [IsAuthenticated]
+
     def fetch_movies(self):
         url      = settings.MOVIE_API_URL
         username = settings.MOVIE_API_USERNAME 

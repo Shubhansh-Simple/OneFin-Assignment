@@ -137,9 +137,12 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 # Rest Framework Authentication
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES' : [
-        'rest_framework.permissions.AllowAny',
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    #'DEFAULT_PERMISSION_CLASSES' : [
+    #    'rest_framework.permissions.AllowAny',
+    #]
 }
 
 # Custom Life Span Of Token

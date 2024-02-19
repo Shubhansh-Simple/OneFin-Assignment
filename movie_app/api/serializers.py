@@ -110,8 +110,6 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
         return collection_obj
 
     def update(self, instance, validated_data):
-        print('You are here for updaing')
-
         instance.title       = validated_data.get('title', instance.title)
         instance.description = validated_data.get('description', instance.description)
         if validated_data.get('movies'):
@@ -123,7 +121,6 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
 
 def handling_movies_and_genres(movies_list):
 
-    print('\nYOU ARE HERE\n')
     all_movies = []
     for movie in movies_list:
         all_genres = []
