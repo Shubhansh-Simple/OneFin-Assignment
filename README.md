@@ -90,19 +90,19 @@ Example error response:
 }
 ```
 
-# Collection Owner's CollectionListView
+# Authenticate User's Collections Listview
 <p align="center">
   <a href="https://shub.pythonanywhere.com/profile">
-    <img alt="Responsive" src="https://raw.githubusercontent.com/Shubhansh-Simple/OneFin-Assignment/main/Screenshots/Collection-Detail-View.png" height="300" /> 
+    <img alt="Responsive" src="https://raw.githubusercontent.com/Shubhansh-Simple/OneFin-Assignment/main/Screenshots/Collection-Detail-View.png" height="500" /> 
   </a>
 </p>
 
 <hr>
 
-# Collection Owner's CollectionDetailView
+# Authenticate User's Collections Detailview
 <p align="center">
   <a href="https://shub.pythonanywhere.com/profile">
-    <img alt="Responsive" src="https://raw.githubusercontent.com/Shubhansh-Simple/OneFin-Assignment/main/Screenshots/Collection-List-View.png" height="300" /> 
+    <img alt="Responsive" src="https://raw.githubusercontent.com/Shubhansh-Simple/OneFin-Assignment/main/Screenshots/Collection-List-View.png" height="500" /> 
   </a>
 </p>
 
