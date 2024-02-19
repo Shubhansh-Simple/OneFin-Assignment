@@ -95,3 +95,15 @@ class CollectionViewSet( viewsets.ViewSet ):
             return Response({"error": "Object not found"}, status=status.HTTP_404_NOT_FOUND)
 
         return Response(serializer.data)
+
+
+    def destroy(self, request, pk=None):
+        try:
+            data = Collections.objects.get(uuid=pk)
+            data.delete()
+            response = {'message' : 'Deleted Successfully'}
+            return Response(response, status=status.HTTP_200_OK)
+        except:
+            response = {'message' :  'No collection found'}
+
+        return Response(response, status=status.HTTP_204_NO_CONTENT)
