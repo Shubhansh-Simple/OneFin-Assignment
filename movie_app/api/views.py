@@ -23,7 +23,7 @@ from rest_framework.permissions import IsAuthenticated
 from movie_app.models import Collections, Genres, Movies
 from movie_app.utils  import prepare_response
 from .permissions     import IsCollectionCreatorLoggedIn
-from .serializers     import CollectionCreateSerializer, CollectionDetailSerializer, CollectionListSerializer 
+from .serializers     import CollectionCreateUpdateSerializer, CollectionDetailSerializer, CollectionListSerializer 
 
 
 #######################
@@ -70,7 +70,7 @@ class MovieApiView( APIView ):
 class CollectionViewSet( viewsets.ViewSet ):
     '''Implementing CRUD operations for Collections'''
 
-    serializer_class   = CollectionCreateSerializer
+    serializer_class   = CollectionCreateUpdateSerializer
     permission_classes = [IsAuthenticated, IsCollectionCreatorLoggedIn]
 
     """
@@ -122,7 +122,7 @@ class CollectionViewSet( viewsets.ViewSet ):
         request_data            = request.data.copy()
         request_data['creator'] = request.user  
 
-        serializer = CollectionCreateSerializer(data=request_data)
+        serializer = CollectionCreateUpdateSerializer(data=request_data)
 
         if serializer.is_valid():
             instance = serializer.save(creator=request_data['creator'])
@@ -133,8 +133,9 @@ class CollectionViewSet( viewsets.ViewSet ):
 
     def update(self, request, pk=None):
         obj        = Collections.objects.get(uuid=pk)
-        serializer = CollectionCreateSerializer(obj, data=request.data, partial=True)
+        serializer = CollectionCreateUpdateSerializer(obj, data=request.data, partial=True)
         if serializer.is_valid():
+            print('Validated Data - ',serializer.validated_data)
             serializer.save()
             resp = {"message": "Record updated successfully"}
             return Response(resp, status=status.HTTP_202_ACCEPTED)

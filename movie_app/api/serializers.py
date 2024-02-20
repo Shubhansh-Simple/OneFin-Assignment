@@ -57,14 +57,15 @@ class CollectionDetailSerializer(serializers.ModelSerializer):
 
 
 # COLLECTION CREATE SERIALIZER
-class CollectionCreateSerializer(serializers.ModelSerializer):
+class CollectionCreateUpdateSerializer(serializers.ModelSerializer):
 
     creator = serializers.ReadOnlyField()
     movies  = MovieSerializer(many=True)
 
     class Meta:
         model  = Collections
-        fields = ['title','description','creator','movies' ]
+        #fields = ['title','description','creator','movies' ]
+        fields = '__all__'
 
     # Custom Validators
     def run_validators(self, attrs):
