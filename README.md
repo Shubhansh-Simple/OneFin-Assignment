@@ -11,6 +11,7 @@ It's an assignment task from OneFin
 * pip install -r requirements.txt 
 * python manange.py runserver
 * Open your favourite browser and run http://localhost:8000/
+* <b>For TESTING</b> run `python manage.py test`
 * (OPTIONAL) Create your own an .env file in your project root folder and add your variables. See my .env for assistance.
 
 ### API Endpoints 
