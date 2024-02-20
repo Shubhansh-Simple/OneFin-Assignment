@@ -15,6 +15,7 @@ class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genres
         fields = '__all__'
+        # Remove default validators
         extra_kwargs = {
             'genres': {
                 'validators': [],
@@ -30,6 +31,7 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Movies
         fields = '__all__'
+        # Remove default validators
         extra_kwargs = {
             'uuid': {
                 'validators': [],
@@ -71,6 +73,7 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
         # SKIP validation for PUT request ( all three fields are optional )
         if self.partial: return attrs
 
+        # Ensure all fields are compulsory: title, description, and movies
         errors = {}
         if not attrs.get('title'):
             errors['title'] = 'Title is required'
@@ -82,7 +85,7 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
         if attrs.get('movies'):
             movies_list = attrs.get('movies')
 
-            # Validate Data in Each Movie Record of Payload
+            # Ensure all fields are compulsory in movies: title, description, and genres
             for movie in movies_list:
                 single_error = {}
                 if not movie.get('title'):
@@ -97,7 +100,8 @@ class CollectionCreateSerializer(serializers.ModelSerializer):
                         errors['movies'].append(single_error)
                     else:
                         errors['movies'] = [single_error]
-        
+
+        # Invalid Payload 
         if errors:
             raise serializers.ValidationError(errors)
         return attrs
