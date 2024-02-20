@@ -5,9 +5,6 @@ from random import randint
 import requests
 import time
 
-# 3rd Party
-import uuid
-
 # django
 from django.conf         import settings
 from django.contrib.auth import get_user_model
