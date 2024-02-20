@@ -132,7 +132,6 @@ class CollectionViewSet( viewsets.ViewSet ):
         obj        = Collections.objects.get(uuid=pk)
         serializer = CollectionCreateUpdateSerializer(obj, data=request.data, partial=True)
         if serializer.is_valid():
-            print('Validated Data - ',serializer.validated_data)
             serializer.save()
             resp = {"message": "Record updated successfully"}
             return Response(resp, status=status.HTTP_202_ACCEPTED)
