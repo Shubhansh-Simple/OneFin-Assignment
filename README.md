@@ -21,9 +21,9 @@ It's an assignment task from OneFin
 | GET |  YES |/movies/  | To retrieve all movies from 3rd party api |
 | GET |  YES |/collection/  | To retrieve all collections of authenticate user |
 | POST | YES |/collection/  | To create new collection with provided movies |
-| GET |  YES |/collection/:pk  | To retrieve details of a single collection |
-| PUT |  YES |/collection/:pk  | To edit the details of a collection |
-| DELETE | YES |/collection:pk  | To delete a collection |
+| GET |  YES |/collection/:pk/  | To retrieve details of a single collection |
+| PUT |  YES |/collection/:pk/  | To edit the details of a collection |
+| DELETE | YES |/collection:pk/  | To delete a collection |
 | GET |  YES | /request-count/  | Return the total number of requests servered by the server |
 | GET |  YES | /request-count/reset/  | Reset total requests servered by the server |
 
