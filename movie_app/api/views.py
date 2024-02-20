@@ -73,6 +73,23 @@ class CollectionViewSet( viewsets.ViewSet ):
     serializer_class   = CollectionCreateSerializer
     permission_classes = [IsAuthenticated, IsCollectionCreatorLoggedIn]
 
+    """
+    Payload Example
+
+    {
+        "title": "Science Fiction Movies",
+        "description" : "My favourite movies of all times",
+        "movies": [
+            {
+                "title": "Inception",
+                "description": "A thief stole secrets by entering your dreams",
+                "genres": [ {"genres" : "Adventure"}, {"genres" : "Suspense"} ],
+                "uuid": "4802ed90-7129-4d53-919f-35c8974b47e6"
+            }
+        ],
+        "creator": 1
+    }
+    """
     def list(self, request):
         user_collections = Collections.objects.filter(creator=request.user)
         serializer       = CollectionListSerializer(user_collections, many=True)
