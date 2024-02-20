@@ -26,6 +26,9 @@ from .permissions     import IsCollectionCreatorLoggedIn
 from .serializers     import CollectionCreateSerializer, CollectionDetailSerializer, CollectionListSerializer 
 
 
+#######################
+# ASSIGNMENT PART - 1 #
+#######################
 class MovieApiView( APIView ):
     '''Integrate 3rd party API with built-in retry mechanism'''
 
@@ -61,6 +64,9 @@ class MovieApiView( APIView ):
         return Response({'message' : 'All retries failed'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
 
+#######################
+# ASSIGNMENT PART - 2 #
+#######################
 class CollectionViewSet( viewsets.ViewSet ):
     '''Implementing CRUD operations for Collections'''
 

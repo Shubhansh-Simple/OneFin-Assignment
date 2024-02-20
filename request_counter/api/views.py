@@ -11,6 +11,9 @@ from request_counter.models  import RequestCount
 from .serializers            import RequestCountSerializer
 
 
+#######################
+# ASSIGNMENT PART - 3 #
+#######################
 class RequestCountApiView( APIView ):
     '''Return total requests servered by the server'''
 
