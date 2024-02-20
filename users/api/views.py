@@ -9,7 +9,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 from users.api.serializers import RegisterSerializer
 
 
-class RegisterApi(generics.GenericAPIView):
+class RegisterApiView(generics.GenericAPIView):
     '''Return JWT Access Token Upon Successful Registration'''
 
     serializer_class = RegisterSerializer

@@ -4,9 +4,9 @@
 from django.urls import path
 
 # local
-from .views import RegisterApi
+from .views import RegisterApiView
 
 urlpatterns = [
-    path('', RegisterApi.as_view(), name='register' ),
+    path('', RegisterApiView.as_view(), name='register' ),
 ]
 
