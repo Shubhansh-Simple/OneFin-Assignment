@@ -106,9 +106,6 @@ class CollectionViewSet( viewsets.ViewSet ):
 
     def retrieve(self, request, pk=None):
         try:
-            # Verify UUID
-            uuid_obj = uuid.UUID(pk)
-
             user_collection = Collections.objects.get(uuid=pk)
             serializer      = CollectionDetailSerializer(user_collection)
 
