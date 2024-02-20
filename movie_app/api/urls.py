@@ -10,12 +10,12 @@ from rest_framework.routers import DefaultRouter
 from .views import MovieApiView, CollectionViewSet
 
 urlpatterns = [
-    path('movies/', MovieApiView.as_view(), name='movie' ),
+    path('movies/', MovieApiView.as_view(), name='movie-list' ),
 ]
 
 # Default Router
 router = DefaultRouter()
-router.register(r'collection', CollectionViewSet, basename='collections')
+router.register(r'collection', CollectionViewSet, basename='collection')
 
 # Add to parent urls
 urlpatterns += router.urls

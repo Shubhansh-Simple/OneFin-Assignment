@@ -14,7 +14,7 @@ It's an assignment task from OneFin
 * (OPTIONAL) Create your own an .env file in your project root folder and add your variables. See my .env for assistance.
 
 ### API Endpoints 
-### (NOTE : Requests must include __strict forward slashes__ at the end for proper routing)
+### (NOTE : Requests must include **strict forward slashes** at the end for proper routing)
 | HTTP Verbs | Authentication | Endpoints | Action |
 | --- | --- | --- | --- |
 | POST | NO | /register/  | Register user and return JWT token |
