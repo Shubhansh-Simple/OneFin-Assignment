@@ -46,13 +46,11 @@ class MovieApiView( APIView ):
         for _ in range(max_retries):
             try:
                 response = self.fetch_movies()
-                print('Response - ',response.status_code)
 
                 if response.status_code == 200:
                     return Response( response.json(), status=response.status_code )
                 else:
                     print('Request failed! (Retrying...)')
-                    print('Response - ',response.text)
                     time.sleep( randint(min_delay, max_delay) )
 
             except requests.exceptions.RequestException as e:
@@ -67,15 +65,14 @@ class CollectionViewSet( viewsets.ViewSet ):
     '''Implementing CRUD operations for Collections'''
 
     serializer_class   = CollectionCreateSerializer
-    #permission_classes = [IsAuthenticated, IsCollectionCreatorLoggedIn]
+    permission_classes = [IsAuthenticated, IsCollectionCreatorLoggedIn]
 
     def list(self, request):
-        #data       = Collections.objects.filter(creator=request.user)
-        user_collections = Collections.objects.filter(creator_id=6)
+        user_collections = Collections.objects.filter(creator=request.user)
         serializer       = CollectionListSerializer(user_collections, many=True)
 
         # CALCULATING TOP 3 GENRES
-        top_genres = Genres.objects.filter(movies__collections__creator_id=6) \
+        top_genres = Genres.objects.filter(movies__collections__creator=request.user) \
                                    .annotate(genre_count=Count('movies')) \
                                    .order_by('-genre_count')[:3] \
                                    .values_list('genres', flat=True)
@@ -92,11 +89,6 @@ class CollectionViewSet( viewsets.ViewSet ):
             user_collection = Collections.objects.get(uuid=pk)
             serializer      = CollectionDetailSerializer(user_collection)
 
-        # Handle Invalid UUID
-        except ValueError:
-            response = {'error' : f'{pk} is not a valid UUID'}
-            return Response(response, status=status.HTTP_400_BAD_REQUEST)
-
         # Handle No data found
         except Collections.DoesNotExist:
             response = {'error' : 'Object not found'}
@@ -106,16 +98,13 @@ class CollectionViewSet( viewsets.ViewSet ):
 
 
     def create(self, request):
-        user = get_user_model().objects.get(id=6)
 
-        request_data = request.data.copy()
-        request_data['creator'] = user #request.user.id  
-        print('Requested data - ',request_data)
+        request_data            = request.data.copy()
+        request_data['creator'] = request.user  
 
         serializer = CollectionCreateSerializer(data=request_data)
 
         if serializer.is_valid():
-            print('It is valid')
             instance = serializer.save(creator=request_data['creator'])
             response = {'collection_uuid' : instance.uuid}
             return Response(response, status=status.HTTP_201_CREATED)
