@@ -13,7 +13,7 @@ It's an assignment task from OneFin
 * Open your favourite browser and run http://localhost:8000/
 * (OPTIONAL) Create your own an .env file in your project root folder and add your variables. See my .env for assistance.
 
-### API Endpoints
+### API Endpoints ( NOTE : STRICT FORWARD SLASHES REQUIRED )
 | HTTP Verbs | Authentication | Endpoints | Action |
 | --- | --- | --- | --- |
 | POST | NO | /register/  | Register user and return JWT token |
