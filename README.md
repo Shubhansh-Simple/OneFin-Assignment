@@ -7,15 +7,15 @@ It's an assignment task from OneFin
 * Clone the repo.
 * Navigate to project directory
 * Install pipenv if not installed already
-* Run pipenv shell, it's activates Pipenv virtual environment
-* pip install -r requirements.txt 
-* python manange.py runserver
-* Open your favourite browser and run http://localhost:8000/
+* Run `pipenv shell`, it's activates Pipenv virtual environment
+* `pip install -r requirements.txt`
+* `python manange.py runserver`
+* Open your favourite browser and run `http://localhost:8000/`
 * <b>For TESTING</b> run `python manage.py test`
 * (OPTIONAL) Create your own an .env file in your project root folder and add your variables. See my .env for assistance.
 
 ### API Endpoints 
-### (NOTE : Requests must include **strict forward slashes** at the end for proper routing)
+<b>NOTE<b> : Requests must include <i><b>strict forward slashes</b></i> at the end for proper routing
 | HTTP Verbs | Authentication | Endpoints | Action |
 | --- | --- | --- | --- |
 | POST | NO | /register/  | Register user and return JWT token |
